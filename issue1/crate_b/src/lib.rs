@@ -11,8 +11,3 @@ uniffi::setup_scaffolding!();
 pub fn make_blob(len: u32) -> Blob {
     Blob(vec![0xAB; len as usize])
 }
-
-#[uniffi::export]
-pub fn blob_len(blob: Blob) -> u32 {
-    blob.0.len() as u32
-}

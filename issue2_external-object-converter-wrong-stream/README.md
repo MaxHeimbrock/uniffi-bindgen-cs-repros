@@ -1,8 +1,8 @@
 # Issue 2: external object converter is passed the wrong crate's BigEndianStream
 
-Reproduction for
-[../../UPSTREAM-external-object-converter-stream.md](../../UPSTREAM-external-object-converter-stream.md).
-uniffi-bindgen-cs `v0.11.0+v0.31.0`, uniffi `0.31`. The generated code is used as-is.
+Minimal, self-contained reproduction against
+[uniffi-bindgen-cs](https://github.com/NordSecurity/uniffi-bindgen-cs) `v0.11.0+v0.31.0`, uniffi `0.31`.
+The generated code is used as-is.
 
 | crate     | role                                                                          |
 |-----------|-------------------------------------------------------------------------------|

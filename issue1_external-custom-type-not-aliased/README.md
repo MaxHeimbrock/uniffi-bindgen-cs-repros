@@ -1,8 +1,8 @@
 # Issue 1: custom type of another crate is never aliased in the consuming file
 
-Reproduction for
-[../../UPSTREAM-external-custom-type-alias.md](../../UPSTREAM-external-custom-type-alias.md).
-uniffi-bindgen-cs `v0.11.0+v0.31.0`, uniffi `0.31`. The generated code is used as-is.
+Minimal, self-contained reproduction against
+[uniffi-bindgen-cs](https://github.com/NordSecurity/uniffi-bindgen-cs) `v0.11.0+v0.31.0`, uniffi `0.31`.
+The generated code is used as-is.
 
 | crate     | role                                                               |
 |-----------|--------------------------------------------------------------------|
@@ -65,7 +65,6 @@ class FfiConverterTypeBlob: FfiConverterRustBuffer<Blob> {
     ...
 }
 
-public static uint BlobLen(Blob @blob) { ... }
 public static Blob MakeBlob(uint @len) { ... }
 ```
 

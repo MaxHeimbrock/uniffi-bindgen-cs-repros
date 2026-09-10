@@ -1,0 +1,9 @@
+# Optional bindgen config: BINDGEN_CONFIG=uniffi.toml ./build.sh
+#
+# Maps the custom type to a named C# type. With it, crate_a.cs gets a real
+# `class FfiConverterTypeBlob` instead of a `using` alias, so the CS0234 facet described in
+# README.md goes away; the missing `using Blob = ...;` alias in crate_b.cs (CS0246) remains.
+[bindings.csharp.custom_types.Blob]
+type_name = "System.ReadOnlyMemory<byte>"
+into_custom = "new System.ReadOnlyMemory<byte>({})"
+from_custom = "{}.ToArray()"

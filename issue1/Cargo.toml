@@ -1,0 +1,8 @@
+# Standalone reproduction for one uniffi-bindgen-cs issue with library-mode output that spans two
+# crates. See README.md. Not part of any other Cargo workspace.
+[workspace]
+resolver = "2"
+members = ["crate_a", "crate_b"]
+
+[workspace.dependencies]
+uniffi = "0.31"

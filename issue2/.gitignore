@@ -1,0 +1,5 @@
+target/
+csharp/bin/
+csharp/obj/
+csharp/native/
+csharp/Generated/

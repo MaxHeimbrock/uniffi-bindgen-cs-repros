@@ -11,7 +11,8 @@ The generated code is used as-is.
 
 ## Prerequisites
 
-- Rust toolchain (tested with 1.94) on macOS; `build.sh` looks for `.dylib`, adjust for other OSes
+- Rust toolchain (tested with 1.94); `build.sh` picks the shared-library extension for macOS, Linux and Windows
+  (verified on macOS)
 - `cargo install uniffi-bindgen-cs --git https://github.com/NordSecurity/uniffi-bindgen-cs --tag v0.11.0+v0.31.0`
 - .NET SDK 10 (change `TargetFramework` in `csharp/Issue2.csproj` for another version)
 
@@ -21,8 +22,8 @@ The generated code is used as-is.
 ./build.sh
 ```
 
-Builds `target/release/libcrate_b.dylib`, runs `uniffi-bindgen-cs --library` into `csharp/Generated/`
-(one unmodified `.cs` file per crate), copies the dylib to `csharp/native/` so `dotnet run` can load it
+Builds `target/release/libcrate_b.dylib` (`.so` on Linux, `crate_b.dll` on Windows), runs `uniffi-bindgen-cs --library` into `csharp/Generated/`
+(one unmodified `.cs` file per crate), copies the library to `csharp/native/` so `dotnet run` can load it
 later, and runs `dotnet build csharp`. Expected:
 
 ```
@@ -94,7 +95,7 @@ and `no widget: 0`.
 Cargo.toml          workspace: crate_a, crate_b
 crate_a/            defines Widget
 crate_b/            cdylib, uses Option<Arc<Widget>>
-csharp/             Issue2.csproj, Program.cs, Generated/ (bindgen output), native/ (dylib)
+csharp/             Issue2.csproj, Program.cs, Generated/ (bindgen output), native/ (shared library)
 build.sh
 ```
 

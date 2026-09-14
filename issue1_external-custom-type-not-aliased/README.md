@@ -11,7 +11,8 @@ The generated code is used as-is.
 
 ## Prerequisites
 
-- Rust toolchain (tested with 1.94) on macOS; `build.sh` looks for `.dylib`, adjust for other OSes
+- Rust toolchain (tested with 1.94); `build.sh` picks the shared-library extension for macOS, Linux and Windows
+  (verified on macOS)
 - `cargo install uniffi-bindgen-cs --git https://github.com/NordSecurity/uniffi-bindgen-cs --tag v0.11.0+v0.31.0`
 - .NET SDK 10 (change `TargetFramework` in `csharp/Issue1.csproj` for another version)
 
@@ -21,13 +22,13 @@ The generated code is used as-is.
 ./build.sh
 ```
 
-Builds `target/release/libcrate_b.dylib`, runs `uniffi-bindgen-cs --library` into `csharp/Generated/`
-(one unmodified `.cs` file per crate), copies the dylib to `csharp/native/` so `dotnet run` can load it
+Builds `target/release/libcrate_b.dylib` (`.so` on Linux, `crate_b.dll` on Windows), runs `uniffi-bindgen-cs --library` into `csharp/Generated/`
+(one unmodified `.cs` file per crate), copies the library to `csharp/native/` so `dotnet run` can load it
 later, and runs `dotnet build csharp`. Expected:
 
 ```
-csharp/Generated/crate_b.cs(1505,52): error CS0246: The type or namespace name 'Blob' could not be found (are you missing a using directive or an assembly reference?)
-   (6 occurrences)
+csharp/Generated/crate_b.cs(1475,52): error CS0246: The type or namespace name 'Blob' could not be found (are you missing a using directive or an assembly reference?)
+   (5 occurrences)
 ```
 
 `./build.sh --no-dotnet` stops after generating. `BINDGEN_CONFIG=uniffi.toml ./build.sh` passes a
@@ -75,7 +76,7 @@ public static Blob MakeBlob(uint @len) { ... }
 and the build fails with:
 
 ```
-csharp/Generated/crate_b.cs(1510,16): error CS0234: The type or namespace name 'FfiConverterTypeBlob' does not exist in the namespace 'uniffi.crate_a' (are you missing an assembly reference?)
+csharp/Generated/crate_b.cs(1480,16): error CS0234: The type or namespace name 'FfiConverterTypeBlob' does not exist in the namespace 'uniffi.crate_a' (are you missing an assembly reference?)
    (3 occurrences)
 ```
 
@@ -84,7 +85,7 @@ csharp/Generated/crate_b.cs(1510,16): error CS0234: The type or namespace name '
 `BINDGEN_CONFIG=uniffi.toml ./build.sh` maps `Blob` to `System.ReadOnlyMemory<byte>`. `crate_a.cs` then
 gets `using Blob = System.ReadOnlyMemory<byte>;` and a real
 `class FfiConverterTypeBlob: FfiConverter<Blob, RustBuffer>`, so the CS0234 facet disappears. The
-missing type alias in `crate_b.cs` remains: the same six CS0246 errors.
+missing type alias in `crate_b.cs` remains: the same five CS0246 errors.
 
 ## Verified fix
 
@@ -107,7 +108,7 @@ instead of `ExternalTypeTemplate.cs`, produces working code.
 Cargo.toml          workspace: crate_a, crate_b
 crate_a/            defines Blob
 crate_b/            cdylib, uses Blob
-csharp/             Issue1.csproj, Program.cs, Generated/ (bindgen output), native/ (dylib)
+csharp/             Issue1.csproj, Program.cs, Generated/ (bindgen output), native/ (shared library)
 uniffi.toml         optional bindgen config, see BINDGEN_CONFIG above
 build.sh
 ```

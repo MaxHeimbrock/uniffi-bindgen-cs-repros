@@ -79,16 +79,3 @@ class FfiConverterTypeWidget : FfiConverter<uniffi.crate_a.Widget, ulong> {
 
 `dotnet build csharp` then reports zero errors and `dotnet run --project csharp` prints `widget id: 7`
 and `no widget: 0`.
-
-## Layout
-
-```
-Cargo.toml          workspace: crate_a, crate_b
-crate_a/            defines Widget
-crate_b/            cdylib, uses Option<Arc<Widget>>
-csharp/             Issue2.csproj, Program.cs, Generated/ (bindgen output), native/ (shared library)
-build.sh
-```
-
-`csharp/Generated/`, `csharp/native/`, `csharp/bin/`, `csharp/obj/` and `target/` are ignored by git;
-`./build.sh` recreates them.

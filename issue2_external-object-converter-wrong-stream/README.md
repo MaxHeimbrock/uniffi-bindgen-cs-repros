@@ -24,8 +24,6 @@ csharp/Generated/crate_b.cs(1464,53): error CS1503: Argument 1: cannot convert f
 csharp/Generated/crate_b.cs(1480,66): error CS1503: Argument 2: cannot convert from 'uniffi.crate_b.BigEndianStream' to 'uniffi.crate_a.BigEndianStream'
 ```
 
-`./build.sh --no-dotnet` stops after generating.
-
 ## What bindgen generates
 
 For an object of another crate, `ExternalObjectTypeTemplate.cs` only aliases that crate's converter:

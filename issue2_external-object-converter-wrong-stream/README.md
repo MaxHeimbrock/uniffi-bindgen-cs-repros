@@ -9,13 +9,6 @@ The generated code is used as-is.
 | `crate_a` | defines `Widget`, a `uniffi::Object` with a constructor and one method        |
 | `crate_b` | exports `widget_id(Option<Arc<Widget>>)`; the cdylib that bindgen reads       |
 
-## Prerequisites
-
-- Rust toolchain (tested with 1.94); `build.sh` picks the shared-library extension for macOS, Linux and Windows
-  (verified on macOS)
-- `cargo install uniffi-bindgen-cs --git https://github.com/NordSecurity/uniffi-bindgen-cs --tag v0.11.0+v0.31.0`
-- .NET SDK 10 (change `TargetFramework` in `csharp/Issue2.csproj` for another version)
-
 ## Run
 
 ```

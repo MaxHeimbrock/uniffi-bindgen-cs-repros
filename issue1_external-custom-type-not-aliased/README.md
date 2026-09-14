@@ -9,13 +9,6 @@ The generated code is used as-is.
 | `crate_a` | defines `Blob`, a `uniffi::custom_type!` over `Vec<u8>`            |
 | `crate_b` | uses `Blob` in two exported functions; the cdylib that bindgen reads |
 
-## Prerequisites
-
-- Rust toolchain (tested with 1.94); `build.sh` picks the shared-library extension for macOS, Linux and Windows
-  (verified on macOS)
-- `cargo install uniffi-bindgen-cs --git https://github.com/NordSecurity/uniffi-bindgen-cs --tag v0.11.0+v0.31.0`
-- .NET SDK 10 (change `TargetFramework` in `csharp/Issue1.csproj` for another version)
-
 ## Run
 
 ```
@@ -30,9 +23,6 @@ later, and runs `dotnet build csharp`. Expected:
 csharp/Generated/crate_b.cs(1475,52): error CS0246: The type or namespace name 'Blob' could not be found (are you missing a using directive or an assembly reference?)
    (5 occurrences)
 ```
-
-`./build.sh --no-dotnet` stops after generating. `BINDGEN_CONFIG=uniffi.toml ./build.sh` passes a
-custom-type mapping to bindgen, see below.
 
 ## What bindgen generates
 
@@ -101,17 +91,3 @@ using FfiConverterTypeBlob = FfiConverterByteArray;
 `dotnet build csharp` then reports zero errors and `dotnet run --project csharp` prints
 `blob length: 4`. In other words, rendering `CustomTypeTemplate.cs` for external custom types too,
 instead of `ExternalTypeTemplate.cs`, produces working code.
-
-## Layout
-
-```
-Cargo.toml          workspace: crate_a, crate_b
-crate_a/            defines Blob
-crate_b/            cdylib, uses Blob
-csharp/             Issue1.csproj, Program.cs, Generated/ (bindgen output), native/ (shared library)
-uniffi.toml         optional bindgen config, see BINDGEN_CONFIG above
-build.sh
-```
-
-`csharp/Generated/`, `csharp/native/`, `csharp/bin/`, `csharp/obj/` and `target/` are ignored by git;
-`./build.sh` recreates them.

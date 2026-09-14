@@ -5,8 +5,8 @@ Independent, self-contained reproductions of bugs in the C# that I found in
 
 | folder | bug | 
 |--------|-----|
-| [`issue1_external-custom-type-not-aliased/`](issue1_external-custom-type-not-aliased/README.md) | a custom type of another crate is never aliased in the consuming file (CS0246). Root cause described in [#40](https://github.com/NordSecurity/uniffi-bindgen-cs/issues/40) | 
-| [`issue2_external-object-converter-wrong-stream/`](issue2_external-object-converter-wrong-stream/README.md) | the converter of another crate's object is passed the wrong crate's `BigEndianStream` (CS1503) | 
+| [`issue1_external-custom-type-not-aliased/`](issue1_external-custom-type-not-aliased/README.md) | a custom type of another crate is never aliased in the consuming file (CS0246). Root cause described in [#40](https://github.com/NordSecurity/uniffi-bindgen-cs/issues/40); fix proposed in [PR #185](https://github.com/NordSecurity/uniffi-bindgen-cs/pull/185) |
+| [`issue2_external-object-converter-wrong-stream/`](issue2_external-object-converter-wrong-stream/README.md) | the converter of another crate's object is passed the wrong crate's `BigEndianStream` (CS1503). Reported in [#184](https://github.com/NordSecurity/uniffi-bindgen-cs/issues/184); fix proposed in [PR #186](https://github.com/NordSecurity/uniffi-bindgen-cs/pull/186) |
 
 ## Prerequisites
 

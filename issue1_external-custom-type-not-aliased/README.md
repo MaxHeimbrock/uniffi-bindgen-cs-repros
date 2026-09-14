@@ -1,5 +1,7 @@
 # Issue 1: custom type of another crate is never aliased in the consuming file
 
+Upstream: root cause described in [NordSecurity/uniffi-bindgen-cs#40](https://github.com/NordSecurity/uniffi-bindgen-cs/issues/40); fix proposed in [PR #185](https://github.com/NordSecurity/uniffi-bindgen-cs/pull/185).
+
 Minimal, self-contained reproduction against
 [uniffi-bindgen-cs](https://github.com/NordSecurity/uniffi-bindgen-cs) `v0.11.0+v0.31.0`, uniffi `0.31`.
 The generated code is used as-is.

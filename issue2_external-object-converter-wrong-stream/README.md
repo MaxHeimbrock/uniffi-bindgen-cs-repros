@@ -1,5 +1,7 @@
 # Issue 2: external object converter is passed the wrong crate's BigEndianStream
 
+Upstream: [NordSecurity/uniffi-bindgen-cs#184](https://github.com/NordSecurity/uniffi-bindgen-cs/issues/184); fix proposed in [PR #186](https://github.com/NordSecurity/uniffi-bindgen-cs/pull/186).
+
 Minimal, self-contained reproduction against
 [uniffi-bindgen-cs](https://github.com/NordSecurity/uniffi-bindgen-cs) `v0.11.0+v0.31.0`, uniffi `0.31`.
 The generated code is used as-is.
